@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+    <div class="header">
+        <h1>Flask + Angular + WinJS</h1>
+        <p>This is a template to quickly develop apps great looking app with Flask</p>
+    </div>
+
+    <div class="content">
+        <p>Bind example -- Minutes: <span ng-bind="time.getMinutes()"></p>
+        <p>Event example -- onChange="angular.element(this).scope().test()"</p>
+        <win-time-picker minuteIncrement="15" current="time" onChange="angular.element(this).scope().test()"></win-time-picker><br><br>
+        <button ng-click="test()">Pop-up : Rating + Hours</button>
+        <p>The current rating is: <span ng-bind="rating"></span>.</p>
+        <win-rating max-rating="10" user-rating="rating"></win-rating>
+    
+    <h2>Grid example</h2>
+    <win-list-view class="listView win-selectionstylefilled" item-data-source="items1">
+        <win-item-template>
+            <div class="grid">
+                    <h4>{{item.data.title|angular}}</h4>
+                    <h6>{{item.data.text|angular}}</h6>
+            </div>
+        </win-item-template>
+        <win-grid-layout></win-grid-layout>
+    </win-list-view>
+    
+    <h2>List example</h2>
+    <win-list-view class="listView win-selectionstylefilled" item-data-source="items2">
+        <win-item-template>
+            <div class="list">
+                    <h4>{{item.data.ttl|angular}}</h4>
+                    <h6>{{item.data.tex|angular}}</h6>
+            </div>
+        </win-item-template>
+        <win-list-layout></win-list-layout>
+    </win-list-view>
+        
+    </div>
+    
+</body>
+{% endblock %}

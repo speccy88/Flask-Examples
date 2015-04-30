@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<head>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<style>
+h3, h4 {text-align: center;}
+span {font-weight: bold;}
+</style>
+
+<script type=text/javascript>
+    $(
+        function() 
+        {
+            function sendData() {
+            data = {slider1: $("#slider1").val(), switch1: $("#switch1").val()};
+            $.getJSON('/_update', data);
+            }
+            
+            $('#slider1').change(function() 
+            { 
+                sendData();
+            });     
+            $('#switch1').change(function() 
+            {
+                sendData();
+            }); 
+        }
+    );
+</script>
+
+<div data-role="page" data-theme="a">
+  <div data-role="header">
+    <div><h3>Edison web control</h3></div>
+  </div>
+
+  <div data-role="content">
+    <form>
+        <label for="slider1">Choose a value:</label>
+        <input type="range" name="slider1" id="slider1" min="0" max="100" value="50">
+        <br>
+        <label for="switch1">LED on/off:</label>
+        <select name="switch1" id="switch1" data-role="slider" data-mini="true">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+
+    </form>
+  </div>
+
+</div>

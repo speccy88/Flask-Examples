@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html>
+    <head>
+        <title>Angular + Flask example</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    </head>
+
+    <body ng-app="myApp">
+        <style>
+            label
+            {
+              width: 80px;
+              display: inline-block;
+              vertical-align: middle;
+            }
+
+            input
+            {
+              vertical-align: middle;
+            }
+        </style>
+
+        <div ng-controller="hostInfoCtrl">
+            <h2>Host Info</h2>
+            <p><b>Platform:</b> {{info.platform|angular}}</p>
+            <p><b>Hostname:</b> {{info.hostname|angular}}</p>
+            <p><b>Machine:</b> {{info.machine|angular}}</p>
+            <p><b>Version:</b> {{info.version|angular}}</p>
+        </div>
+        
+        <div ng-controller="randomCtrl">
+            <h2>Interval demo (2s)</h2>
+            <p><b>Random number:</b> {{random|angular}}</p>
+        </div>
+        
+        <div ng-controller="postDataCtrl">
+            <h2>Posting data to Flask</h2>
+            <label for="name">Name:</label>
+            <input id="name" type="text" ng-model="name"> <br>
+            
+            <label for="geekRadio">Geek:</label>
+            <input id="geekRadio" type="radio" ng-model="type" value="geek" /><br>
+
+            <label for="makerRadio">Maker:</label>
+            <input id="makerRadio" type="radio" ng-model="type" value="maker" /><br>
+
+            <label for="hackerRadio">Hacker:</label>
+            <input id="hackerRadio" type="radio" ng-model="type" value="hacker" /><br>
+            <button ng-click='postData()'>Send</button><br><br>
+            <b>Your name is </b> {{name|angular}} <b>and you are a </b> {{type|angular}}<br />
+        </div>
+    </body>
+    <script>
+        var app = angular.module('myApp', []);
+        
+        app.controller('hostInfoCtrl', function($scope, $http) {
+            $http.get("/api/hostinfo").success(function(data) {
+                $scope.info = data
+            })
+        })
+        
+        
+        app.controller('randomCtrl', function($scope, $interval, $http) {
+            var getRandom = function() {
+            $http.get("/api/random").success(function(data) {
+                $scope.random = data.random;
+                })
+            }
+            getRandom()
+            $interval(getRandom, 2000)
+        })
+        
+        app.controller('postDataCtrl', function($scope, $http) {
+            $scope.postData = function() {
+                var data = {Name: $scope.name, Type: $scope.type}
+                $http.post("/api/update", data).success(function(){
+                    alert("Data sent successfully")
+                })
+            }
+        })        
+        
+    </script>
+    
+</html>

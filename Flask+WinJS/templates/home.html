@@ -1,0 +1,45 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<!-- WinJS -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='winjs/css/ui-dark.css') }}">
+<script src="{{ url_for('static', filename='winjs/js/WinJS.js') }}"></script>
+
+<!-- Home -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+<script src="{{ url_for('static', filename='home.js') }}"></script>
+</head>
+
+<body>
+    <div class="header">
+    <h1>Flask + WinJS</h1>
+    <p>Tests!</p>
+    </div>
+    
+    <div id="action">
+    <button id="viewCurrentProjects">Voir les projets en cours</button>
+    <button id="addProject">Nouveau projet &#xe109;</button>
+    <button id="viewOldProjects">Voir les anciens projets</button>
+    </div>
+    
+    <div id="projectTemplate" data-win-control="WinJS.Binding.Template" style="display: none">     
+    <h4 id="projectTitle" data-win-bind="innerText: title"></h4>
+    <h5 id="projectNumber" data-win-bind="innerText: number"></h5>	
+    </div>
+    
+    <div id="content">
+    <div id="currentProjectList"
+        data-win-control="WinJS.UI.ListView"      
+        data-win-options="{ itemDataSource: DefaultData.bindingList.dataSource,       
+        itemTemplate: projectTemplate, layout: { type: WinJS.UI.GridLayout } }">
+    </div>
+    <div id="oldProjectList">Test</div>
+    </div>
+
+    <!-- div id="addTaskFlyout" data-win-control="WinJS.UI.Flyout">
+    <div>New Task Info</div>
+    <input id="taskName" type="text" tabindex="-1" placeholder="Enter your task name">
+    <button id="createTask">Create Task</button>	
+    </div -->
+    
+</body>
